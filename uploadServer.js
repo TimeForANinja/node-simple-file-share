@@ -8,12 +8,17 @@ const TMP_PATH = './tmp/';
 const MAX_SIZE = 1 * 1024 * 1024 * 1024;
 
 
+const OS = require('os');
+const FS = require('fs');
+const DNS = require('dns');
+const PATH = require('path');
 const HTTP = require('http');
 const QS = require('querystring');
-const FS = require('fs');
-const PATH = require('path');
+// Allow for streaming of mp4
 const MIME = new Map();
 MIME.set('.mp4', 'video/mp4');
+MIME.set('.mp3', 'audio/mpeg');
+MIME.set('.mkv', 'video/x-matroska');
 
 const dwPath = PATH.resolve(__dirname, DW_PATH);
 if (!FS.existsSync(dwPath)) FS.mkdirSync(dwPath);
@@ -31,8 +36,13 @@ const server = HTTP.createServer((req, res) => {
     sendHome(res);
   }
 }).listen(HTTP_PORT, () => {
-  const { address, port } = server.address();
-  console.log(`/**********************\n * now live @ ${address}:${port} *\n **********************/`);
+  const { port } = server.address();
+  DNS.lookup(OS.hostname(), (err, add) => {
+    if (err) throw err;
+    let resp_strg = ` * now live at http://${add}:${port} * `;
+    resp_strg = `/${'*'.repeat(resp_strg.length - 2)}\n${resp_strg}\n ${'*'.repeat(resp_strg.length - 2)}/`;
+    console.log(resp_strg);
+  });
 });
 
 const sendHome = res => {
