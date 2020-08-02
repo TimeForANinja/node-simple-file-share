@@ -1,0 +1,27 @@
+{
+  "name": "simple-file-share",
+  "version": "1.0.0",
+  "description": "http based website to do quick file uploading / downloading via network",
+  "main": "uploadServer.js",
+  "dependencies": {
+    "formidable": "^1.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./",
+    "lint:fix": "eslint --fix ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimeForANinja/node-simple-file-share.git"
+  },
+  "author": "TimeForANinja (https://github.com/timeforaninja)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TimeForANinja/node-simple-file-share/issues"
+  },
+  "homepage": "https://github.com/TimeForANinja/node-simple-file-share#readme"
+}
